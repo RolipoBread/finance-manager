@@ -5,15 +5,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionResponse {
-    public Long id;
-    public String name;
-    public Double bill;
-    public LocalDate date;
-    public Category category;
+
+    private Long id;
+    private String name;
+    private BigDecimal amount;
+    private LocalDate date;
+
+    private Long categoryId;
+    private String categoryName;
+
+    private Long accountId;
 }

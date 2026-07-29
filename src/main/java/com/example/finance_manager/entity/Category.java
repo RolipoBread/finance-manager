@@ -18,7 +18,6 @@ public class Category {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @OneToMany(mappedBy = "")
-    private List<Transaction> transactions_from_account;
-
+    @OneToMany(mappedBy = "category")
+    private List<Transaction> transactions;
 }

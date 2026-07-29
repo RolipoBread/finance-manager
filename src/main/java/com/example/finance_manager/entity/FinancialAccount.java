@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class FinancialAccount {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private Double balance;
+    private BigDecimal balance;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;

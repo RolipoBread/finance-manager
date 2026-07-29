@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryMapper {
 
-    public Category toEntity (CategoryRequest response){
+    public Category toEntity (CategoryRequest request){
         Category category = new Category();
-        category.setName(response.getName());
+        category.setName(request.getName());
         return category;
     }
 

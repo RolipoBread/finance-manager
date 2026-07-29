@@ -6,15 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class FinancialAccountResponse {
-    public Long id;
-    public String name;
-    public Double balance;
-    public User owner;
-    public List<Transaction> transactions;
+    private Long id;
+    private String name;
+    private BigDecimal balance;
+
+    private Long ownerId;
+    private List<TransactionResponse> transactions;
 }

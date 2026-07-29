@@ -10,9 +10,9 @@ public class TransactionMapper {
     public Transaction toEntity(TransactionRequest response){
         Transaction transaction = new Transaction();
         transaction.setName(response.getName());
-        transaction.setBill(response.getBill());
+        transaction.setAmount(response.getAmount());
         transaction.setDate(response.getDate());
-        transaction.setCategory(response.getCategory());
+
         return transaction;
     }
 
@@ -20,9 +20,13 @@ public class TransactionMapper {
         TransactionResponse response = new TransactionResponse();
         response.setId(transaction.getId());
         response.setName(transaction.getName());
-        response.setBill(transaction.getBill());
+        response.setAmount(transaction.getAmount());
         response.setDate(transaction.getDate());
-        response.setCategory(transaction.getCategory());
+
+        response.setCategoryId(transaction.getCategory().getId());
+        response.setCategoryName(transaction.getCategory().getName());
+
+        response.setAccountId(transaction.getAccount().getId());
         return response;
     }
 }

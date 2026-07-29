@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "transactions")
@@ -19,11 +21,14 @@ public class Transaction {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private Double bill;
+    private BigDecimal amount;
     @Column(nullable = false)
     private LocalDate date;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private FinancialAccount account;
 
 }

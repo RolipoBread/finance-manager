@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserResponse geResponseById(Long id){
+        return mapper.toResponse(getById(id));
+    }
+
+    @Override
     public List<UserResponse> getAll() {
         return repository.findAll().stream().map(mapper::toResponse).toList();
     }

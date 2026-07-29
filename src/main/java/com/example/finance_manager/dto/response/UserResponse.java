@@ -11,9 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse {
-    public Long id;
-    public String name;
-    public String login;
-    public String password;
-    public List<FinancialAccountRequest> accounts;
+    private Long id;
+    private String name;
+    private String login;
+
+    private List<FinancialAccountResponse> accounts;
 }

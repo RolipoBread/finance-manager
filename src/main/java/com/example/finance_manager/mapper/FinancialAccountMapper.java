@@ -11,8 +11,7 @@ public class FinancialAccountMapper {
         FinancialAccount account = new FinancialAccount();
         account.setName(response.getName());
         account.setBalance(response.getBalance());
-        account.setOwner(response.getOwner());
-        account.setTransactions(response.getTransactions());
+
         return account;
     }
 
@@ -21,8 +20,7 @@ public class FinancialAccountMapper {
         response.setId(account.getId());
         response.setName(account.getName());
         response.setBalance(account.getBalance());
-        response.setOwner(account.getOwner());
-        response.setTransactions(account.getTransactions());
+        response.setOwnerId(account.getOwner().getId());
         return response;
     }
 }

@@ -10,8 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequest {
-    public String name;
-    public String login;
-    public String password;
-    public List<FinancialAccountRequest> accounts;
+    private String name;
+    private String login;
+    private String password;
 }
