@@ -1,7 +1,6 @@
 package com.example.finance_manager.dto.response;
 
-import com.example.finance_manager.entity.Transaction;
-import com.example.finance_manager.entity.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -16,17 +16,23 @@ public class TransactionMapper {
         return transaction;
     }
 
-    public TransactionResponse toResponse (Transaction transaction){
+    public TransactionResponse toResponse(Transaction transaction) {
         TransactionResponse response = new TransactionResponse();
+
         response.setId(transaction.getId());
         response.setName(transaction.getName());
         response.setAmount(transaction.getAmount());
         response.setDate(transaction.getDate());
 
-        response.setCategoryId(transaction.getCategory().getId());
-        response.setCategoryName(transaction.getCategory().getName());
+        if (transaction.getCategory() != null) {
+            response.setCategoryId(transaction.getCategory().getId());
+            response.setCategoryName(transaction.getCategory().getName());
+        }
 
-        response.setAccountId(transaction.getAccount().getId());
+        if (transaction.getAccount() != null) {
+            response.setAccountId(transaction.getAccount().getId());
+        }
+
         return response;
     }
 }
