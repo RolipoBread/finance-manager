@@ -12,6 +12,7 @@ public interface FinancialAccountService {
     FinancialAccountResponse create(FinancialAccountRequest request);
     List<FinancialAccountResponse> getAll();
     FinancialAccount getById(Long id);
+    FinancialAccount getByIdWithTransactions(Long id);
     FinancialAccountResponse getResponseById(Long id);
     FinancialAccountResponse update(Long id, FinancialAccountRequest request);
     void delete(Long id);

@@ -60,10 +60,15 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
                 .orElseThrow(() -> new RuntimeException("Account not found"));
     }
 
+    @Override
+    public FinancialAccount getByIdWithTransactions(Long id) {
+        return repository.findWithTransactionsById(id)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+    }
 
     @Override
     public FinancialAccountResponse getResponseById(Long id) {
-        return mapper.toResponse(getById(id));
+        return mapper.toResponse(getByIdWithTransactions(id));
     }
 
 

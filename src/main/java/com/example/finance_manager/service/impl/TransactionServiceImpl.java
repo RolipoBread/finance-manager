@@ -11,9 +11,9 @@ import com.example.finance_manager.service.FinancialAccountService;
 import com.example.finance_manager.service.TransactionService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -41,11 +41,15 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
-    public List<TransactionResponse> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toResponse)
-                .toList();
+    public Page<TransactionResponse> getAll(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(mapper::toResponse);
+    }
+
+    @Override
+    public  Page<TransactionResponse> getByAccount(Long accoingId, Pageable pageable){
+        accountService.getById(accoingId);
+        return repository.findByAccountId(accoingId,pageable).map(mapper::toResponse);
     }
 
 
@@ -71,6 +75,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         accountService.updateBalance(oldAccount.getId(), transaction.getAmount().negate());
         transaction.setName(request.getName());
+        transaction.setDescription(request.getDescription());
         transaction.setAmount(request.getAmount());
         transaction.setDate(request.getDate());
         transaction.setCategory(categoryService.getById(request.getCategoryId()));

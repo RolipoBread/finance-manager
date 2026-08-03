@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "transactions")
@@ -19,6 +18,8 @@ public class Transaction {
     private Long id;
     @Column(nullable = false)
     private String name;
+    @Column(length = 500)
+    private String description;
     @Column(nullable = false)
     private BigDecimal amount;
     @Column(nullable = false)

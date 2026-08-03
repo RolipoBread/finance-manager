@@ -7,11 +7,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TransactionMapper {
-    public Transaction toEntity(TransactionRequest response){
+
+    public Transaction toEntity(TransactionRequest request) {
         Transaction transaction = new Transaction();
-        transaction.setName(response.getName());
-        transaction.setAmount(response.getAmount());
-        transaction.setDate(response.getDate());
+
+        transaction.setName(request.getName());
+        transaction.setDescription(request.getDescription());
+        transaction.setAmount(request.getAmount());
+        transaction.setDate(request.getDate());
 
         return transaction;
     }
@@ -21,6 +24,7 @@ public class TransactionMapper {
 
         response.setId(transaction.getId());
         response.setName(transaction.getName());
+        response.setDescription(transaction.getDescription());
         response.setAmount(transaction.getAmount());
         response.setDate(transaction.getDate());
 

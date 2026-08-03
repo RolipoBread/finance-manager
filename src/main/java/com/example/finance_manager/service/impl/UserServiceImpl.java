@@ -2,6 +2,7 @@ package com.example.finance_manager.service.impl;
 
 import com.example.finance_manager.dto.request.UserRequest;
 import com.example.finance_manager.dto.response.UserResponse;
+import com.example.finance_manager.exception.UserAlreadyExistsException;
 import com.example.finance_manager.mapper.UserMapper;
 import com.example.finance_manager.service.UserService;
 import com.example.finance_manager.entity.User;
@@ -36,6 +37,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserResponse create(UserRequest request){
         User user = mapper.toEntity(request);
+        if(repository.existsByLogin(request.getLogin())){
+            throw new UserAlreadyExistsException(request.getLogin());
+        }
         User saved = repository.save(user);
         return mapper.toResponse(saved);
     }

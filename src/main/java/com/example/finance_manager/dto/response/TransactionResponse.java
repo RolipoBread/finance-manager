@@ -1,6 +1,5 @@
 package com.example.finance_manager.dto.response;
 
-import com.example.finance_manager.entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +14,7 @@ public class TransactionResponse {
 
     private Long id;
     private String name;
+    private String description;
     private BigDecimal amount;
     private LocalDate date;
 
