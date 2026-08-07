@@ -2,6 +2,7 @@ package com.example.finance_manager.controller;
 
 import com.example.finance_manager.dto.request.TransactionRequest;
 import com.example.finance_manager.dto.response.TransactionResponse;
+import com.example.finance_manager.entity.TransactionPeriod;
 import com.example.finance_manager.service.TransactionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @Tag(
         name = "Transactions",
@@ -25,8 +28,8 @@ public class TransactionController {
 
     @Operation(summary = "Get all users")
     @GetMapping
-    public Page<TransactionResponse> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
-        return service.getAll(PageRequest.of(page,size, Sort.by("date").descending()));
+    public Page<TransactionResponse> getAll(@RequestParam(required = false) TransactionPeriod period, @RequestParam(required = false) LocalDate from, @RequestParam(required = false) LocalDate to, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size){
+        return service.getAll(period, from, to, PageRequest.of(page, size, Sort.by("date").descending()));
     }
 
     @Operation(summary = "Get all transactions")
