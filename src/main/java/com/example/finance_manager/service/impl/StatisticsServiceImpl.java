@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatisticsServiceImpl implements StatisticsService {
 
-    TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
     @Override
     public List<CategoryAmountResponse> getExpensesByCategory(Long userId) {

@@ -1,22 +1,24 @@
 package com.example.finance_manager.service.impl;
 
+import com.example.finance_manager.dto.filter.TransactionFilter;
 import com.example.finance_manager.dto.request.TransactionRequest;
 import com.example.finance_manager.dto.response.TransactionResponse;
+import com.example.finance_manager.dto.filter.DateRange;
 import com.example.finance_manager.entity.FinancialAccount;
 import com.example.finance_manager.entity.Transaction;
-import com.example.finance_manager.entity.TransactionPeriod;
 import com.example.finance_manager.mapper.TransactionMapper;
 import com.example.finance_manager.repository.TransactionRepository;
+import com.example.finance_manager.repository.specification.TransactionSpecification;
 import com.example.finance_manager.service.CategoryService;
+import com.example.finance_manager.service.DateRangeResolver;
 import com.example.finance_manager.service.FinancialAccountService;
 import com.example.finance_manager.service.TransactionService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +29,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final CategoryService categoryService;
     private final FinancialAccountService accountService;
+
+    private final DateRangeResolver dateRangeResolver;
 
     @Override
     @Transactional
@@ -44,30 +48,30 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
-    public Page<TransactionResponse> getAll(TransactionPeriod period, LocalDate from, LocalDate to, Pageable pageable){
-        if(from != null && to != null) return repository.findByDateBetween(from,to,pageable).map(mapper::toResponse);
+    public Page<TransactionResponse> getAll(
+            TransactionFilter filter,
+            Pageable pageable
+    ) {
 
-        if(period != null){
-            LocalDate now = LocalDate.now();
-            switch(period){
-                case DAY -> {
-                    return repository.findByDateBetween(now, now, pageable).map(mapper::toResponse);
-                }
-                case WEEK -> {
-                    return repository.findByDateBetween(now.minusDays(7), now, pageable).map(mapper::toResponse);
-                }
-                case MONTH -> {
-                    return repository.findByDateBetween(now.withDayOfMonth(1), now, pageable).map(mapper::toResponse);
-                }
-            }
+        DateRange range = dateRangeResolver.resolve(filter);
+
+        if (range != null) {
+            filter.setFrom(range.getFrom());
+            filter.setTo(range.getTo());
         }
-        return repository.findAll(pageable).map(mapper::toResponse);
+
+        return repository
+                .findAll(
+                        TransactionSpecification.build(filter),
+                        pageable
+                )
+                .map(mapper::toResponse);
     }
 
     @Override
-    public  Page<TransactionResponse> getByAccount(Long accoingId, Pageable pageable){
-        accountService.getById(accoingId);
-        return repository.findByAccountId(accoingId,pageable).map(mapper::toResponse);
+    public  Page<TransactionResponse> getByAccount(Long accointId, Pageable pageable){
+        accountService.getById(accointId);
+        return repository.findByAccountId(accointId,pageable).map(mapper::toResponse);
     }
 
 
